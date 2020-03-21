@@ -18,7 +18,6 @@ class MovielistBloc extends Bloc<MovielistEvent, MovielistState> {
     MovielistEvent event,
   ) async* {
     if (event is GetList) {
-      print("yes yes");
       yield MovieListLoading();
 
       try {
@@ -31,7 +30,6 @@ class MovielistBloc extends Bloc<MovielistEvent, MovielistState> {
   }
 
   Future<List> loadMovies() async {
-    print("yes yes11");
     http.Response movieList = await http.get(
         "http://api.themoviedb.org/3/movie/popular?api_key=802b2c4b88ea1183e50e6b285a27696e");
     var movielist = jsonDecode(movieList.body);

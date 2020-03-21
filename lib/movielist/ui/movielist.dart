@@ -40,6 +40,11 @@ class _MovieListState extends State<MovieList> {
                 itemCount: state.movies.length,
                 itemBuilder: (context, index) {
                   var movid = state.movies[index]["id"];
+                  if (state.movies.length == 0) {
+                    return Center(
+                      child: Text("no popular movies :)"),
+                    );
+                  }
                   return GestureDetector(
                     onTap: () {
                       moviebloc.add(SearchMovie(movid));
@@ -68,19 +73,6 @@ class _MovieListState extends State<MovieList> {
                     )),
                   );
                 });
-            /*      return Center(
-                child: MaterialButton(
-              onPressed: () {
-                moviebloc.add(SearchMovie("movieId"));
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                        builder: (context) => Final(
-                              moviebloc: moviebloc,
-                            )));
-              },
-              child: Text("Dispatch Event"),
-            )); */
           }
           return Center(
             child: MaterialButton(

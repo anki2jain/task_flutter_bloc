@@ -2,13 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../../enums/connectivity_status.dart';
-  
 
 class Nonetwork extends StatefulWidget {
   @override
   _NonetworkState createState() => _NonetworkState();
 }
-
 
 class _NonetworkState extends State<Nonetwork> {
   @override
@@ -17,23 +15,24 @@ class _NonetworkState extends State<Nonetwork> {
       appBar: AppBar(),
       body: Center(
         child: Container(
-          child: Column(
-            crossAxisAlignment:CrossAxisAlignment.center,
-            mainAxisAlignment:MainAxisAlignment.center,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Icon(Icons.error),
+            child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Padding(
+              padding: const EdgeInsets.all(20.0),
+              child: Icon(Icons.error),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "No network please connect to the internet",
+                textAlign: TextAlign.center,
               ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text("No network please connect to the internet",textAlign: TextAlign.center,),
-              ),
-            ],
-          )
-        ),
+            ),
+          ],
+        )),
       ),
-      
     );
   }
 }
@@ -43,12 +42,10 @@ class NetworkSensitive extends StatelessWidget {
 
   NetworkSensitive({
     this.child,
-  
   });
 
-   @override
+  @override
   Widget build(BuildContext context) {
-    // Get our connection status from the provider
     var connectionStatus = Provider.of<ConnectivityStatus>(context);
 
     if (connectionStatus == ConnectivityStatus.WiFi) {
@@ -59,6 +56,6 @@ class NetworkSensitive extends StatelessWidget {
       return child;
     }
 
-    return  Nonetwork();
+    return Nonetwork();
   }
 }
