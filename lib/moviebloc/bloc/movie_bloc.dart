@@ -16,7 +16,7 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
   Stream<MovieState> mapEventToState(
     MovieEvent event,
   ) async* {
-    if (event is SearchMovie) {
+    if (event is GetMovieDetail) {
       final int movieId = event.movieId;
       if (movieId.toString().isEmpty) {
         yield MovieEmpty();
@@ -24,10 +24,9 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
         yield MovieLoading();
 
         try {
-          List result = await loadMovies(movieId);
-          print(result);
-
-          yield MovieLoadedSuccess(result, movieId);
+          Map details = await loadMovies(movieId);
+          Map cast = await getCast(movieId);
+          yield MovieLoadedSuccess(details, movieId,cast);
         } catch (error) {
           yield MovieError();
         }
@@ -35,12 +34,22 @@ class MovieBloc extends Bloc<MovieEvent, MovieState> {
     }
   }
 
-  Future<List> loadMovies(movieId) async {
+  Future<Map> loadMovies(movieId) async {
     http.Response moviedetails = await http.get(Uri.encodeFull(
-        "http://api.themoviedb.org/3/movie/$movieId/videos?api_key=802b2c4b88ea1183e50e6b285a27696e"));
+        "http://api.themoviedb.org/3/movie/$movieId?api_key=2931998c3a80d7806199320f76d65298&append_to_response=videos"));
 
     var movieDetail = jsonDecode(moviedetails.body);
-    return movieDetail["results"];
+
+    return movieDetail;
+  }
+
+  Future<Map> getCast(movieId) async {
+    http.Response movieCasts = await http.get(Uri.encodeFull(
+        "http://api.themoviedb.org/3/movie/$movieId/casts?api_key=2931998c3a80d7806199320f76d65298"));
+
+    var movieCast = jsonDecode(movieCasts.body);
+
+    return movieCast;
   }
 
   // Stream _fetchDetailstoState(SearchMovie event) async* {}

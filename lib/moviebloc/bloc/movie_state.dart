@@ -30,10 +30,11 @@ class MovieEmpty extends MovieState {
 }
 
 class MovieLoadedSuccess extends MovieState {
-  final List movie;
+  final Map movie;
   final int movieId;
+  final Map cast;
 
-  MovieLoadedSuccess(this.movie, this.movieId);
+  MovieLoadedSuccess(this.movie, this.movieId, this.cast);
   @override
   List<Object> get props => [];
 

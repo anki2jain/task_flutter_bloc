@@ -1,3 +1,4 @@
+import 'package:credicxotaskapp/mainscreen.dart/ui/mainscreen.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'enums/connectivity_status.dart';
@@ -20,10 +21,12 @@ class MyApp extends StatelessWidget {
           theme: ThemeData(
             primarySwatch: Colors.blue,
           ),
-          home: NetworkSensitive(
-              child: MovieList(
+          home: NetworkSensitive(child: MainScreen()
+              /*   child: MovieList(
             movielistbloc: movielistBloc,
-          )),
+          ) */
+
+              ),
         ));
   }
 }
